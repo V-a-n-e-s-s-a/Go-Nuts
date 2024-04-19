@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/LoginScreen">
+    android:background="@drawable/CreateAccountScreen">
 
     <EditText
-        android:id="@+id/LoginEmailAddress"
+        android:id="@+id/CreateAccountEmail"
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginStart="219dp"
@@ -29,18 +29,18 @@
         tools:ignore="RtlSymmetry" />
 
     <EditText
-        android:id="@+id/LoginPassword"
+        android:id="@+id/CreateAccountPassword"
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:layout_marginStart="219dp"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="302dp"
         android:layout_marginBottom="90dp"
-        android:autofillHints="@string/password"
+        android:autofillHints="@string/create_password"
         android:background="@drawable/custom_email_field"
         android:ems="10"
         android:fontFamily="sans-serif-medium"
-        android:hint="@string/password"
+        android:hint="@string/create_password"
         android:inputType="textPassword"
         android:paddingStart="30dp"
         android:textColor="@color/fieldFont"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.284"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginEmailAddress"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/CreateAccountEmail"
         tools:ignore="RtlSymmetry" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
