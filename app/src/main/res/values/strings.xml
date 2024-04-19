@@ -64,6 +64,8 @@
     <string name="create_account_button">createAccount</string>
     <string name="homescreen">homescreen</string>
     <string name="login_button">login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>
 
 <!--<resources>-->

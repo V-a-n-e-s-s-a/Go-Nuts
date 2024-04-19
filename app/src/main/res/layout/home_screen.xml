@@ -6,17 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/Homescreen">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/imageView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="442dp"-->
-    <!--        android:contentDescription="@string/homescreen"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        app:srcCompat="@drawable/Homescreen" />-->
-
-
     <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/createAccountButton"
         android:layout_width="350dp"
         android:layout_height="75dp"
         android:layout_marginStart="500dp"
@@ -32,7 +23,7 @@
         app:srcCompat="@drawable/CreateAccount" />
 
     <ImageButton
-        android:id="@+id/imageButton7"
+        android:id="@+id/loginButton"
         android:layout_width="350dp"
         android:layout_height="75dp"
         android:layout_marginStart="500dp"
@@ -41,7 +32,7 @@
         android:background="#00000000"
         android:contentDescription="@string/login_button"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton6"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
