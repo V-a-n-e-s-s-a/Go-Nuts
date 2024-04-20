@@ -67,6 +67,9 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="create_password">Create Password</string>
+    <string name="rank_number">1</string>
+    <string name="player_name">player</string>
+    <string name="game_score">0000</string>
 </resources>
 
 <!--<resources>-->
