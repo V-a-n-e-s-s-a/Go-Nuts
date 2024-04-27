@@ -93,5 +93,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Pauses the game when the activity is paused, to ensure that game state is handled properly.
+         * This method is called as part of the activity lifecycle when the user no longer actively interacts with the activity.
+         */
+        @Override
+        protected void onPause() {
+                super.onPause();
+                if (gameView != null) {
+                        gameView.pause(); // Pause the game when the activity is paused to handle the game loop properly
+                }
+        }
+
+        /**
+         * Resumes the game when the activity is resumed, ensuring that the game context is appropriately managed.
+         * This method is called when the activity will start interacting with the user again.
+         */
+        @Override
+        protected void onResume() {
+                super.onResume();
+                if (gameView != null) {
+                        gameView.resume(); // Resume the game when the activity returns to the foreground
+                }
+        }
+
+        /**
+         * Ensures the game is properly paused and resources are released when the activity is being destroyed.
+         * This method is called as part of the activity lifecycle when the activity is no longer visible.
+         */
+        @Override
+        protected void onDestroy() {
+                super.onDestroy();
+                if (gameView != null) {
+                        gameView.pause(); // Ensure the game is properly paused to avoid running in the background
+                }
+        }
+
     }
 }
