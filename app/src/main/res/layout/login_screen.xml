@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_screen">
 
-<!--    login_screen defines the layout for the LoginActivity screen.-->
+<!--    @author Vanessa
+login_screen defines the layout for the LoginActivity screen.-->
 
 <!--    Allows the user to enter username(email address)-->
     <EditText
