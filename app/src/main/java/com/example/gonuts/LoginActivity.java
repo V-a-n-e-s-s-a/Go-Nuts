@@ -1,5 +1,6 @@
 package com.example.gonuts;
 
+import android.content.Intent; // communicate between components of an Android application
 import android.os.Bundle; // used for passing data between activities
 import android.view.View; // represents a basic building block for user interface components
 import android.widget.EditText; // provides a text entry for users to enter text
@@ -22,25 +23,32 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException; // exce
  * LoginActivity is an interface class that displays the Login screen,
  * allows the player to login to the game, and checks for valid
  * username(email) and password.
+ *
+ * LoginActivity is a subclass of AppCompatActivity
  */
 
 public class LoginActivity extends AppCompatActivity {
     /**
      * EditText view used for entering the email address
      */
-    private EditText editTextEmail;
+    EditText editTextEmail;
     /**
      * EditText view used for entering the password
      */
-    private EditText editTextPassword;
+    EditText editTextPassword;
     /**
      * ImageButton used as the login button
      */
-    private ImageButton buttonLogin;
+    ImageButton loginButton;
     /**
      * An instance of FirebaseAuth used for Firebase authentication
      */
-    private FirebaseAuth authentication;
+    FirebaseAuth authentication;
+
+    /**
+     * Instance of FirestoreAccess for accessing Firestore database
+     */
+    FirestoreAccess firestoreAccess;
 
     /**
      * A method that is called when the activity is being created
@@ -52,6 +60,10 @@ public class LoginActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /**
+         * Ensure that the superclass's initialization code is executed
+         * before custom initialization code.
+         */
         super.onCreate(savedInstanceState);
 
         /**
@@ -66,16 +78,26 @@ public class LoginActivity extends AppCompatActivity {
         authentication = FirebaseAuth.getInstance();
 
         /**
+         * Initialize FirestoreAccess
+         */
+        firestoreAccess = new FirestoreAccess();
+
+        /**
          * Find views by their IDs
          */
         editTextEmail = findViewById(R.id.LoginEmailAddress);
         editTextPassword = findViewById(R.id.LoginPassword);
-        buttonLogin = findViewById(R.id.LoginButton);
+        loginButton = findViewById(R.id.LoginButton);
 
         /**
          * Set click listener for the login button
          */
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Click event
+             *
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 /**
@@ -98,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param email is the user's email
      * @param password is the user's password
      */
-    private void login(String email, String password) {
+    protected void login(String email, String password) {
         /**
          * Sign in with email and password
          */
@@ -114,7 +136,36 @@ public class LoginActivity extends AppCompatActivity {
                          * Login is successful
                          */
                         if (task.isSuccessful()) {
+
+                            /**
+                             * Deletes email because it already exists on
+                             * Firebase. Prevents duplicates of email.
+                             */
+                            firestoreAccess.deletePlayerByEmail(email);
+
+                            /**
+                             * Creates a new instance of the Game class with
+                             * the specified email and initializes score to 0,
+                             * and the FirestoreAccess instance firestoreAccess
+                             * (initialize new game object for a player).
+                             */
+                            Game game = new Game(email, 0, firestoreAccess);
+                            /**
+                             * Update the score in Firestore
+                             */
+                            game.updateScore();
+
+                            /**
+                             * Display message
+                             */
                             showToast("Login successful");
+
+                            /**
+                             * Navigates to LeaderboardActivity
+                             */
+                            Intent intent = new Intent(LoginActivity.this, LeaderboardActivity.class);
+                            startActivity(intent);
+                            finish(); // Close this activity
                         }
 
                         else {
