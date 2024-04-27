@@ -1,5 +1,6 @@
 package com.example.gonuts;
 
+import android.content.Intent; // communicate between components of an Android application
 import android.os.Bundle; // used for passing data between activities
 import android.view.View; // represents a basic building block for user interface components
 import android.widget.EditText; // provides a text entry for users to enter text
@@ -21,25 +22,32 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException; // exception
  * CreateAccountActivity is an interface class that displays the
  * create account screen, allows player to create a game account
  * (username and password), and checks if the username is taken already.
+ *
+ * CreateAccountActivity is a subclass of AppCompatActivity
  */
 
 public class CreateAccountActivity extends AppCompatActivity {
     /**
      * EditText view used for entering the email address
      */
-    private EditText editTextEmail;
+    EditText editTextEmail;
     /**
      * EditText view used for entering the password
      */
-    private EditText editTextPassword;
+    EditText editTextPassword;
     /**
      * ImageButton used as the create account button
      */
-    private ImageButton buttonCreateAccount;
+    ImageButton createAccountButton;
     /**
      * An instance of FirebaseAuth used for Firebase authentication
      */
-    private FirebaseAuth authentication;
+    FirebaseAuth authentication;
+
+    /**
+     * Instance of FirestoreAccess for accessing Firestore database
+     */
+    FirestoreAccess firestoreAccess;
 
     /**
      * A method that is called when the activity is being created
@@ -51,6 +59,10 @@ public class CreateAccountActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /**
+         * Ensure that the superclass's initialization code is executed
+         * before custom initialization code.
+         */
         super.onCreate(savedInstanceState);
         /**
          * Initializing variables and setting up any necessary event listeners
@@ -64,16 +76,26 @@ public class CreateAccountActivity extends AppCompatActivity {
         authentication = FirebaseAuth.getInstance();
 
         /**
+         * Initialize FirestoreAccess
+         */
+        firestoreAccess = new FirestoreAccess();
+
+        /**
          * Find views by their IDs
          */
         editTextEmail = findViewById(R.id.CreateAccountEmail);
         editTextPassword = findViewById(R.id.CreateAccountPassword);
-        buttonCreateAccount = findViewById(R.id.CreateAccountButton);
+        createAccountButton = findViewById(R.id.CreateAccountButton);
 
         /**
          * Set click listener for the create account button
          */
-        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Click event
+             *
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
                 /**
@@ -96,7 +118,7 @@ public class CreateAccountActivity extends AppCompatActivity {
      * @param email is user's email
      * @param password is the user's password
      */
-    private void createAccount(String email, String password) {
+    protected void createAccount(String email, String password) {
         /**
          * Create account with given email and password
          */
@@ -108,11 +130,34 @@ public class CreateAccountActivity extends AppCompatActivity {
                      */
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        /**
+                         * Account creation success
+                         */
                         if (task.isSuccessful()) {
+
                             /**
-                             * Account creation success
+                             * Creates a new instance of the Game class with
+                             * the specified email and initializes score to 0,
+                             * and the FirestoreAccess instance firestoreAccess
+                             * (initialize new game object for a player).
+                             */
+                            Game game = new Game(email, 0, firestoreAccess);
+                            /**
+                             * Update the score in Firestore
+                             */
+                            game.updateScore();
+
+                            /**
+                             * The account was successfully created
                              */
                             showToast("Account created successfully");
+
+                            /**
+                             * Navigates to LeaderboardActivity
+                             */
+                            Intent intent = new Intent(CreateAccountActivity.this, Test.class);
+                            startActivity(intent);
+                            finish(); // Close this activity
                         }
                         else {
                             /**
