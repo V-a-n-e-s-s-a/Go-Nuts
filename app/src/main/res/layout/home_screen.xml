@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/Homescreen">
+    android:background="@drawable/homescreen">
 
+    <!--  @author Vanessa
+    home_screen defines the layout for the MainActivity screen.-->
+
+<!--    Allows the user to click on an image button that takes them to-->
+<!--    Create Account screen-->
     <ImageButton
         android:id="@+id/createAccountButton"
         android:layout_width="350dp"
@@ -20,8 +25,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/CreateAccount" />
+        app:srcCompat="@drawable/create_account_button"/>
 
+<!--    Allows the user to click on an image button that takes them to-->
+<!--    Login screen-->
     <ImageButton
         android:id="@+id/loginButton"
         android:layout_width="350dp"
@@ -38,5 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/Login" />
+        app:srcCompat="@drawable/login"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
