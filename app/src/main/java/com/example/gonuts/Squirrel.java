@@ -51,6 +51,38 @@ public class Squirrel {
     }
 
     /**
+     * Moves the squirrel position up.
+     *
+     */
+    public void moveUp() {
+        y -= speed;
+    }
+
+    /**
+     * Moves the squirrel position down.
+     *
+     */
+    public void moveDown() {
+        y += speed;
+    }
+
+    /**
+     * Moves the squirrel position left.
+     *
+     */
+    public void moveLeft() {
+        x -= speed;
+    }
+
+    /**
+     * Moves the squirrel position right.
+     *
+     */
+    public void moveRight() {
+        x += speed;
+    }
+
+    /**
      * Draws the squirrel on the provided canvas.
      *
      * @param canvas The canvas on which to draw the squirrel.
