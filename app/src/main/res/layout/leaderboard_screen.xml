@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/LeaderboardScreen">
+    android:background="@drawable/leaderboard_screen">
 
+<!--    @author Vanessa
+leaderboard_screen defines the layout for the LeaderboardActivity screen-->
+
+<!--    Displays leaderboard contents in a list-->
     <ListView
+        android:id="@+id/listView"
         android:layout_width="432dp"
         android:layout_height="206dp"
         android:layout_marginStart="149dp"
