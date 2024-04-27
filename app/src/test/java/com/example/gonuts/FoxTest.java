@@ -1,6 +1,4 @@
-package com.example.mycopyofgonuts;
-
-package com.example.mycopyofgonuts;
+package com.example.gonuts;
 
 import android.content.Context;
 import android.content.res.Resources;
